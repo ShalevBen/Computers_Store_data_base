@@ -37,7 +37,7 @@ public static void PrintMenu(String type) {
 			                + "Please select an option:");
 
 		}
-
+ 
 	}
 
 public static int intLength(int given_int) {
