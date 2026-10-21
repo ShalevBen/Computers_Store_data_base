@@ -29,7 +29,7 @@ public MyLinkedList getList()
  */
 public boolean isQueueEmpty()
 {
-	return queueNode == null || queueNode.isEmpty();
+	return queueNode.isEmpty();
 }
 
 
@@ -67,10 +67,3 @@ public String printLinkedQueue()
 }
 
 }
-
-
-
-
-
-
-

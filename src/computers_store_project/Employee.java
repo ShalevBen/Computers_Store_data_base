@@ -8,6 +8,12 @@ public class Employee
 	private double selary;
 	private LinkedQueue given_service_to;
 	//a queue implemented as a linked list of costumers he gave service to.
+public Employee(int given_id , String given_name)
+{
+	name = given_name;
+	id 	 = given_id;
+}
+	
 	
 public Employee(String given_name,int given_id,double given_selary,Customer given_customer)
 {
@@ -50,7 +56,7 @@ public String toString()
 {
 	String ans = "";
 	 ans = "name: " + name + "\n" +"Id: " + id +"\n" +"selary: " + selary + "\n" +
-		   "\n" + "the queue of costumers for the employee is:" + "\n" + given_service_to.printLinkedQueue();
+		   "\n" + "the queue of costumers for the employee is:" + "\n" + given_service_to.printLinkedQueue() + "\n";
 	return ans;
 }
 

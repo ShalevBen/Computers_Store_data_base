@@ -35,15 +35,16 @@ public int length()
 	return counter;
 }
 
-public boolean isEmpty() 
+public boolean isEmpty()
 {
-	return (first == null);
+	return first == null;
 }
 
 public void addLast(Object data) 
 {
 	Link newLink = new Link(data, null);
-	if (isEmpty()) 
+	
+	if (first == null)
 	{
 		first = newLink;
 	}

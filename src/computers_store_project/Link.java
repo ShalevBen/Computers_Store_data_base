@@ -11,6 +11,8 @@ public Link(Object Newdata, Link Newnext)
 	next = Newnext;
 }
 
+
+
 public Link(Object data) 
 {
 		this(data, null);
@@ -38,10 +40,14 @@ public void setNext(Link next)
 }
 	
 
+public boolean isEmpty()
+{
+	return data == null && next == null;
+}
+
 public String toString()
 {
-
-	String ans;
+	String ans = "";
 	ans =   data + "\n" + "next is: " +"\n" + next + "\n";
 	return ans;
 			

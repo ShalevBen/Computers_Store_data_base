@@ -74,6 +74,7 @@ public void GiveDiscount(double dis)
 	double discount = getPrice()*precent; // amount of money to remove from price
 	setPrice(getPrice()-discount); //new price
 }
+
 //will calculate the price after vat
 public double applyVat()
 {

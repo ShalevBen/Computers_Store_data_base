@@ -41,7 +41,7 @@ public String toString()
 	String ans;
 	
 	ans = "name: " + name + "\n" +"phone number: " +phone_number +"\n" + "compeny_name: " +compeny_name 
-			+"\n"+"Suppliers Products: " +"\n" + first_Product_Node.PrintList();
+			+"\n"+"Suppliers Products: " +"\n" + first_Product_Node.PrintList() + "\n";
 	return ans;
 }
 
@@ -114,7 +114,7 @@ public void addLastProduct(Product given_product)
 }
 
 //remove the first node in the list and return him, it handels the connection in between nodes.
-public ProductLink removeNode(int given_id)
+public ProductLink removeProduct(int given_id)
 {
 	
 	ProductLink ans = null;

@@ -50,11 +50,11 @@ public void push(Object data)
 		//   |                             V
 		//newNode                      [Orange] -> (Next: null)
 		 //                           (firstNode points to Orange)
-		newNode.setNext(node);
+		node.setNext(newNode);
 		
 		//the new node is the higher node on the stack so it becomes the first on in the stack, every
 		//new node will be the first node 
-		node = newNode;
+		newNode = node;
 	}
 	
 }
@@ -89,7 +89,26 @@ public Product pop()  throws Exception
 
 public String toString()
 {
-	return node.toString();
+	
+	if(node == null)
+	{
+		return " stack is empty!"+ "\n";
+	}
+	
+	String ans = "";
+	Link temp1 = node;
+	
+	
+	while(temp1.getNext() != null)
+	{
+		
+		ans += temp1.toString();
+		temp1 = temp1.getNext();
+	}
+	
+	
+	return ans;
+	
 }
 
 
