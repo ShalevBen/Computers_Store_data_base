@@ -149,19 +149,24 @@ public void Add_From_Supplier(String given_name,String given_phone,int given_ite
 	
 	for(int i = 0; i < wearhouse_suppliers.length; i++)
 	{
-		if(wearhouse_suppliers[i].getPhone().equals(given_phone) && wearhouse_suppliers[i].getName().equals(given_name))
+		if(wearhouse_suppliers[i] == null)
 		{
-			if(wearhouse_suppliers[i].searchProduct(given_item_id))
-			{
-				temp = wearhouse_suppliers[i].removeProduct(given_item_id);
-			}
-			
+			continue;
 		}
+			if(wearhouse_suppliers[i].getPhone().equals(given_phone) && wearhouse_suppliers[i].getName().equals(given_name))
+			{
+				if(wearhouse_suppliers[i].searchProduct(given_item_id))
+				{
+					//this is the BOX not the PRODUCT
+					temp = wearhouse_suppliers[i].removeProduct(given_item_id);
+				}
+				
+			}
 		
 	}
 	
 	//will hold the product and push it into the stack.
-	 item_list.push(temp);
+	 item_list.push(temp.getProduct());
 	System.out.println(temp + "\n" + "was added to the stack.");
 }
 
