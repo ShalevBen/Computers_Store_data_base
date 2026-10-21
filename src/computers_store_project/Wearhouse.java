@@ -58,13 +58,13 @@ public boolean Is_employee_in_array(Employee given_employee)
 	
 	return false;
 }
-
-public boolean Is_supplier_in_array(Supplier given_supplier)
+//identify the supplier by a uniqe identifier.
+public boolean Is_supplier_in_array(String given_phone)
 {
 	for(int i = 0; i < wearhouse_suppliers.length; i++)
 	{
 		
-		if(wearhouse_suppliers[i].equals(given_supplier))
+		if(wearhouse_suppliers[i].getPhone().equals(given_phone))
 		{
 			return true;
 		}
@@ -131,10 +131,38 @@ public void Remove_employee(int given_id , String given_name)
 
 ///* this method will take the item by its id from the Supplier and place in in the wearhouse*/
 ///* supplier will have an item he is suppling and this will be the item that will go to the wearhouse*/
-public void Add_From_Supplier(int given_product_id)
+public void Add_From_Supplier(String given_name,String given_phone,int given_item_id)
 {
 	
+	if(wearhouse_suppliers[0] == null)
+	{
+		System.out.println("The suppliers array is empty! \n");
+		return;
+	}
 	
+	if(!(Is_supplier_in_array(given_phone)))
+	{
+		System.out.println("The requested supplier is not in the supplier array! \n");
+		return;
+	}
+	ProductLink temp = new ProductLink();
+	
+	for(int i = 0; i < wearhouse_suppliers.length; i++)
+	{
+		if(wearhouse_suppliers[i].getPhone().equals(given_phone) && wearhouse_suppliers[i].getName().equals(given_name))
+		{
+			if(wearhouse_suppliers[i].searchProduct(given_item_id))
+			{
+				temp = wearhouse_suppliers[i].removeProduct(given_item_id);
+			}
+			
+		}
+		
+	}
+	
+	//will hold the product and push it into the stack.
+	 item_list.push(temp);
+	System.out.println(temp + "\n" + "was added to the stack.");
 }
 
 ///* this meathod will chack by id if an  item is already in the wearhouse*/

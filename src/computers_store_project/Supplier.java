@@ -113,7 +113,7 @@ public void addLastProduct(Product given_product)
 		}
 }
 
-//remove the first node in the list and return him, it handels the connection in between nodes.
+//remove the node in the list and return him, it handels the connection in between nodes.
 public ProductLink removeProduct(int given_id)
 {
 	
