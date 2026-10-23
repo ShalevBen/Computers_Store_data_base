@@ -155,10 +155,11 @@ public static void HandleManager(Wearhouse w,Employee e , Scanner s)
 	int state = 1;
 	int id = 0;
 	String name = "";
+	String Phone = "";
 	
 	
 	do {
-		PrintMenu("Menager");
+		PrintMenu("Manager");
 		int choice =s.nextInt();
 		switch(choice){
 		case 1:
@@ -187,10 +188,20 @@ public static void HandleManager(Wearhouse w,Employee e , Scanner s)
 			break;
 		case 3:
 			System.out.println("Whice product do you want to add to the wearhouse from whice supplier? \n");
-			
-		
-		
-		
+			System.out.println(" Enter Supplier phone number: \n");
+			s.nextLine();
+			Phone = s.nextLine();
+			System.out.println("Enter the item id: \n");
+			id =s.nextInt();
+			s.nextLine();
+			w.Add_to_wearhouse_From_Supplier(Phone, id);
+			System.out.println("the following item id was added to the wearhouse: \n" + id + "\n");
+		break;
+//		case 4:
+		case 5:
+			System.out.println("Printing item in wearhouse right now: \n");
+			System.out.println(w.get_stack().toString());
+			break;
 		}
 		
 		
@@ -212,6 +223,13 @@ public static void HandleManager(Wearhouse w,Employee e , Scanner s)
 //  Customer c3 = new Customer("Sarah Levi", 312456789, 1250.5, true);
 //  Customer c4 = new Customer("David Cohen", 204938475, 420.75, false);
 		Employee e1 = new Employee("shalev", 207160193, 2500.0, c1);
+		Wearhouse w1 = new Wearhouse();
+		Keyboards k1 = new Keyboards(298675093, "mechanical", 300.0, 36);
+		Keyboards k2 = new Keyboards(786954325, "magnetic", 500.0, 24);
+		Keyboards k3 = new Keyboards(163748295, "wireless", 450.0, 12);
+		w1.get_stack().push(k1);
+		w1.get_stack().push(k2);
+		w1.get_stack().push(k3);
 //        
 //  System.out.println("the employee's info:" + "\n");
 //  System.out.println(e1.toString());
@@ -321,9 +339,10 @@ public static void HandleManager(Wearhouse w,Employee e , Scanner s)
 				HandleEmployee(e1, c1, input);
 				break;
 
-			case "Menager":
-				System.out.println("work in progress");
+			case "Manager":
+				HandleManager(w1,e1,input);
 				break;
+
 			case "Exit":
 				System.out.println("Exiting!\n");
 				runing = false;

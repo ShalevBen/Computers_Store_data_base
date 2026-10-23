@@ -48,9 +48,11 @@ public boolean isEmpty()
 public String toString()
 {
 	String ans = "";
-	ans =   data + "\n" + "next is: " +"\n" + next + "\n";
+	ans =   data + "\n" + "next is:" + "\n" ;
 	return ans;
 			
 }
+
+//+ "next is: " +"\n" + next + "\n";
 
 }

@@ -131,7 +131,7 @@ public void Remove_employee(int given_id , String given_name)
 
 ///* this method will take the item by its id from the Supplier and place in in the wearhouse*/
 ///* supplier will have an item he is suppling and this will be the item that will go to the wearhouse*/
-public void Add_From_Supplier(String given_name,String given_phone,int given_item_id)
+public void Add_to_wearhouse_From_Supplier(String given_phone,int given_item_id)
 {
 	
 	if(wearhouse_suppliers[0] == null)
@@ -153,7 +153,7 @@ public void Add_From_Supplier(String given_name,String given_phone,int given_ite
 		{
 			continue;
 		}
-			if(wearhouse_suppliers[i].getPhone().equals(given_phone) && wearhouse_suppliers[i].getName().equals(given_name))
+			if(wearhouse_suppliers[i].getPhone().equals(given_phone))
 			{
 				if(wearhouse_suppliers[i].searchProduct(given_item_id))
 				{

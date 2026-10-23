@@ -34,28 +34,28 @@ public void push(Object data)
 {
 	//creates a new node
 	Link  newNode = new Link((Product)data,null);
+	Link temp = node;
+	Link temp1 = null;
 	
 	//if stack is empty we add the node to be first down the stack
 	if(isStackEmpty())
 	{
 		
 		node = newNode;
+		return;
 	}
 	
 	else
 	{
-		//we basically say " OK you are above the first one we had in"
-		//[Blue] -> (Next: null)        Stack Top
-		//   ^                             |
-		//   |                             V
-		//newNode                      [Orange] -> (Next: null)
-		 //                           (firstNode points to Orange)
-		node.setNext(newNode);
+		// the first node is the new node.
+		temp1 = temp;
+		temp = newNode;
 		
 		//the new node is the higher node on the stack so it becomes the first on in the stack, every
 		//new node will be the first node 
-		newNode = node;
+		temp.setNext(temp1);
 	}
+	node = temp;
 	
 }
 
@@ -99,7 +99,7 @@ public String toString()
 	Link temp1 = node;
 	
 	
-	while(temp1.getNext() != null)
+	while(temp1 != null)
 	{
 		
 		ans += temp1.toString();
