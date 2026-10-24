@@ -16,7 +16,7 @@ public static void PrintMenu(String type) {
                   + "	3. Search Customer in line. \n"
 				  + "	4. Remove from line. \n"
                   + "	5. Print the line of costumers. \n "
-				  + "	6. Back.\n"
+				  + "	0. Back.\n"
                   + "========================================\n"
 				  + "Please select an option:");
 		}
@@ -139,7 +139,7 @@ public static void HandleEmployee(Employee e, Customer c, Scanner s) {
 				e.PrintLine();
 				break;
 
-			case 6:
+			case 0:
 				System.out.println("Going back!\n");
 				state = 0;
 				s.nextLine(); // need to clear the scanner from previous useage.
@@ -156,6 +156,8 @@ public static void HandleManager(Wearhouse w,Employee e , Scanner s)
 	int id = 0;
 	String name = "";
 	String Phone = "";
+	String str_choice = "";
+	double price = 0.0;
 	
 	
 	do {
@@ -197,10 +199,39 @@ public static void HandleManager(Wearhouse w,Employee e , Scanner s)
 			w.Add_to_wearhouse_From_Supplier(Phone, id);
 			System.out.println("the following item id was added to the wearhouse: \n" + id + "\n");
 		break;
-//		case 4:
+		case 4:
+				System.out.println("Whice item do youi want to change? \n");
+				s.nextLine();
+				id = s.nextInt();
+				System.out.println("What do you want to change? price / warranty \n");
+				s.nextLine();
+				str_choice = s.nextLine();
+				if(str_choice.equals("price"))
+				{
+					System.out.println("What is the price you want to change to?: \n");
+					price = s.nextDouble();
+					try {
+						w.search_product(id).setPrice(price);
+					} catch (Exception e2) {
+						System.err.println("Caught Excaption:" + e2.getMessage());
+						e2.printStackTrace();
+					} 
+				}
+				
+				break;
+				
 		case 5:
 			System.out.println("Printing item in wearhouse right now: \n");
 			System.out.println(w.get_stack().toString());
+			break;
+		case 6:
+			System.out.println("Printing the employees in the wearhouse. \n");
+			System.out.println(w.Show_employees());
+			break;
+		case 0:
+			System.out.println("Going back!\n");
+			state = 0;
+			s.nextLine(); // need to clear the scanner from previous useage.
 			break;
 		}
 		
@@ -227,6 +258,7 @@ public static void HandleManager(Wearhouse w,Employee e , Scanner s)
 		Keyboards k1 = new Keyboards(298675093, "mechanical", 300.0, 36);
 		Keyboards k2 = new Keyboards(786954325, "magnetic", 500.0, 24);
 		Keyboards k3 = new Keyboards(163748295, "wireless", 450.0, 12);
+		w1.Add_employee(e1);
 		w1.get_stack().push(k1);
 		w1.get_stack().push(k2);
 		w1.get_stack().push(k3);

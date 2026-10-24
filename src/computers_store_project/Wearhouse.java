@@ -187,6 +187,30 @@ public boolean is_in_wearhouse(int given_id)
 	return false;
 }
 
+public Product search_product(int given_id) 
+{
+	if(!(is_in_wearhouse(given_id)))
+	{
+		throw new NullPointerException("The requested id is not in the wearhouse! \n");
+		
+	}
+	
+	Link p = item_list.getNode();
+	Product p1 = (Product)item_list.getNode().getData();
+	while(p != null)
+	{
+		if (p1.getId() == given_id)
+		{
+			return p1;
+		}
+		else 
+			p = p.getNext();
+	}
+	throw new NullPointerException("The requested id was not found! \n");
+}
+
+
+
 public Product remove_product_from_wearhouse(int given_id) 
 {
 	if(item_list.isStackEmpty())

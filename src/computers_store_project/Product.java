@@ -68,6 +68,7 @@ public String toString()
 	 return ans;
 }
 
+//gives a disc to a product
 public void GiveDiscount(double dis)
 {
 	double precent = dis/100; //gives the amount of discount like 10% or 20%...

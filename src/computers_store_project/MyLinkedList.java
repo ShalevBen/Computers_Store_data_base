@@ -95,8 +95,13 @@ public String toString()
 				ans += temp.toString();
 				temp = temp.getNext();
 			}
-		return ans;
+			else
+			{
+				ans += "null";
+			}
+			
 	}
+	return ans;
 }
 
 }
