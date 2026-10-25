@@ -30,6 +30,8 @@ public boolean isStackEmpty()
 }
 
 
+
+
 public void push(Object data)
 {
 	//creates a new node
@@ -44,7 +46,6 @@ public void push(Object data)
 		node = newNode;
 		return;
 	}
-	
 	else
 	{
 		// the first node is the new node.

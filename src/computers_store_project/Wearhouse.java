@@ -173,17 +173,19 @@ public void Add_to_wearhouse_From_Supplier(String given_phone,int given_item_id)
 ///* this meathod will chack by id if an  item is already in the wearhouse*/
 public boolean is_in_wearhouse(int given_id) 
 {
+	
 	Link p = item_list.getNode();
-	Product p1 = (Product)item_list.getNode().getData();
+	Product p1 = (Product) p.getData();
 	while(p != null)
 	{
-		if (p1.getId() == given_id)
+		if(p1.getId() == given_id)
 		{
 			return true;
 		}
-		else 
-			p = p.getNext();
+		p =p.getNext();
+		p1 = (Product) p.getData();
 	}
+	
 	return false;
 }
 

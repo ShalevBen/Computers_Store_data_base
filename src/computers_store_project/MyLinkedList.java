@@ -58,6 +58,7 @@ public void addLast(Object data)
 		
 			temp.setNext(newLink);
 		}
+	
 	}
 
 public Object removeFirst(){
@@ -81,6 +82,12 @@ public String toString()
 {
 	String ans = "";
 	Link temp = first;
+
+	if(temp == null)
+	{
+		ans = "the list is empty";
+		return ans;
+	}
 	
 	if(length() == 1 )
 	{
@@ -90,15 +97,12 @@ public String toString()
 	
 	else
 	{
-			if(temp.getNext() != null)
+			while(temp != null)
 			{
 				ans += temp.toString();
 				temp = temp.getNext();
 			}
-			else
-			{
 				ans += "null";
-			}
 			
 	}
 	return ans;

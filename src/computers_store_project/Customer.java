@@ -58,6 +58,19 @@ public String toString()
 	return ans;
 }
 
+public void ApplyDisc()
+{
+	double precentage = 30;
+	double amount_discounted = (precentage/100)*amount_payed;
+	
+	if(is_vip == true)
+	{
+		setAmount_payed(amount_payed-amount_discounted);
+	}
+	else
+	System.out.println("Discount wasnt given to: \n" + id +"\n");
+}
+
 
 }
 
