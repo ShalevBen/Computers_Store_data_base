@@ -19,6 +19,17 @@ public Supplier(String given_name,String given_phone,String given_compeny,Produc
 	first_Product_Node = new ProductLink(given_product);
 }
 
+public Supplier(String given_name,String given_phone,String given_compeny)
+{
+	
+	//this will handle the supplier stuff
+	name = given_name;
+	phone_number = given_phone;
+	compeny_name = given_compeny;
+	first_Product_Node = new ProductLink();
+	
+}
+
 //getter and setters
 public String getName()
 {
@@ -35,18 +46,23 @@ public String getCompenyName()
 return compeny_name;	
 }
 
+public ProductLink getList()
+{
+	return first_Product_Node;
+}
+
 
 public String toString()
 {
 	String ans;
 	
 	ans = "name: " + name + "\n" +"phone number: " +phone_number +"\n" + "compeny_name: " +compeny_name 
-			+"\n"+"Suppliers Products: " +"\n" + first_Product_Node.PrintList() + "\n";
+			+"\n"+"Suppliers Products: \n" +"\n" + first_Product_Node.PrintList() + "\n";
 	return ans;
 }
 
 //chacks if the list is empty
-public boolean isEmpty()
+public boolean isListEmpty()
 {
 	return first_Product_Node == null; 	
 }
@@ -54,9 +70,9 @@ public boolean isEmpty()
 /* this function goes in the list and look inside it
  * @return true if the given id is in the list
  */
-public boolean searchProduct( int product_id)
+public boolean Is_Product_in_the_list( int product_id)
 {
-	if(isEmpty() == true)
+	if(isListEmpty() == true)
 	{
 		System.out.println("the list is empty");
 		return false;
@@ -73,7 +89,7 @@ public boolean searchProduct( int product_id)
 		//if we didnt we will continue to the next product in line.
 		else 
 		{
-			current = current.getNext();
+			current = current.getNextNode();
 		}
 		
 	}
@@ -84,11 +100,18 @@ public boolean searchProduct( int product_id)
 //insert a Product to the end of the list.
 public void addLastProduct(Product given_product)
 {
+	// if the list is empty we will set the given_product into the first slot of the list.
+	if (isListEmpty())
+	{
+		first_Product_Node.setProduct(given_product);
+		return;
+		
+	}
 	//create a new link to insert to the list
 	ProductLink newProd = new ProductLink(given_product);
 	
 	    //the list is not empty and we need to insert the product into it
-		if(searchProduct(given_product.getId()))
+		if(Is_Product_in_the_list(given_product.getId()))
 		{
 			System.out.println("the product is already in the list! " + "\n");
 			return;
@@ -99,17 +122,18 @@ public void addLastProduct(Product given_product)
 			
 			while(temp != null)
 			{
-				if(temp.getNext() == null)
+				if(temp.getNextNode() == null)
 				{
-					 temp.setNext(newProd);
+					 temp.setNextNode(newProd);
 					 return;
 				}
 				else
 				{
-					temp = temp.getNext();
+					temp = temp.getNextNode();
 					
 				}
 			}
+			
 		}
 }
 
@@ -117,28 +141,46 @@ public void addLastProduct(Product given_product)
 public ProductLink removeProduct(int given_id)
 {
 	
-	ProductLink ans = null;
-	ProductLink temp = first_Product_Node;
-
-	if(isEmpty())
+	if(isListEmpty())
 	{
 		return null;
 	}
 	
-	//we find the one we need and we return it.
-	while(temp != null)
+	//you must create a new objwith new to prevent changing the original list.
+	//and to prevent the other nodes aside from the first to change.
+	ProductLink curr = first_Product_Node; 
+	ProductLink ans = null;
+	ProductLink prev = curr;
+	
+	//for the case where the first node is the one we look for.
+	if(curr.getProduct().getId() == given_id)
 	{
-		if(temp.getProduct().getId() == given_id)
+		ans = curr;
+		ans.setNextNode(null);
+		first_Product_Node = first_Product_Node.getNextNode();
+		return ans;
+	}
+	
+	// this is the case where we are looking for a suitability.
+	while(curr != null)
+	{
+		if(curr.getProduct().getId() == given_id)
 		{
-			ans = temp;
-			temp = temp.getNext();
+			//this way of connecting we dont need to do curr = curr.getNext()
+			ans = curr;
+			prev.setNextNode(curr.getNextNode());//connecting the list in a way
+												// where the node is  "deleted".
+			ans.setNextNode(null);
 			return ans;
 		}
 		else 
 		{
-			temp = temp.getNext();
+			prev = curr;
+			curr = curr.getNextNode();
 		}
 	}
+	
+	
 	
 	System.out.println("the requested item is not in the list! \n");
 	return null;

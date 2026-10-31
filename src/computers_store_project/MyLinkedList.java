@@ -2,29 +2,36 @@ package computers_store_project;
 
 public class MyLinkedList 
 {
-	private Link first;
+	private Link Node;
 
 //creates an empty
 public MyLinkedList ()
 {
-		first = null;
+		Node = null;
 }
 
 public MyLinkedList (Object data)
 {
-	first = new Link(data, null);
+	Node = new Link(data, null);
 }
 
-public Link getFirstNode()
+public Link getNode()
 {
-	return first;
+	return Node;
 
 }
 
 public int length()
 {
-	Link temp = first;
+	Link temp = Node;
 	int counter = 1;
+	
+	if(Node == null)
+	{
+		counter = 0;
+		return counter;
+		
+	}
 	
 	while(temp.getNext() != null)
 	{
@@ -36,21 +43,27 @@ public int length()
 }
 
 public boolean isEmpty()
-{
-	return first == null;
+{ //make sure to see that if the first == null. it dosent mean it dont exist, it exist but its empty.
+  // you can see it in your deafult constructor, in it first == null. whice mean it exist but its empty.
+	if(Node == null)
+	{
+		return true;
+	}
+	return false;
+	
 }
 
 public void addLast(Object data) 
 {
 	Link newLink = new Link(data, null);
 	
-	if (first == null)
+	if (Node == null)
 	{
-		first = newLink;
+		Node = newLink;
 	}
 	else
 	{
-		Link temp = first;
+		Link temp = Node;
 		while (temp.getNext() != null)
 			{
 				temp = temp.getNext();
@@ -72,8 +85,8 @@ public Object removeFirst(){
 	
 	else 
 	{
-		ans = first.getData();
-		first = first.getNext();
+		ans = Node.getData();
+		Node = Node.getNext();
 	}
 	return ans;
 }
@@ -81,7 +94,7 @@ public Object removeFirst(){
 public String toString()
 {
 	String ans = "";
-	Link temp = first;
+	Link temp = Node;
 
 	if(temp == null)
 	{

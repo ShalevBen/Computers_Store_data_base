@@ -11,7 +11,7 @@ public class ProductLink
 public ProductLink()
 {
 	product = null;
-	nextNode =null;
+	nextNode = null;
 }
 	
 //creates a node with given product
@@ -19,6 +19,12 @@ public ProductLink (Product given_data)
 {
 	product = given_data;
 	nextNode = null;
+}
+
+public ProductLink (ProductLink l)
+{
+	product = l.product;
+	nextNode = l.nextNode;
 }
 
 //setter and getter for the data (product)
@@ -33,12 +39,12 @@ public void setProduct(Product given_product)
 }
 
 //setter and getter for the ProductNode
-public ProductLink getNext()
+public ProductLink getNextNode()
 {
 	return nextNode;	
 }
 	
-public void setNext(ProductLink given_node)
+public void setNextNode(ProductLink given_node)
 {
 
 	nextNode = given_node;
@@ -53,7 +59,7 @@ public String toString()
 	}
 	
 	String ans = "" ;
-	ans = "The prod: \n" + product + "the next: \n" + nextNode;
+	ans = "The prod: \n" + product+ "\n" + "the next: \n" + nextNode + "\n";
 	return ans;
 	
 
@@ -68,7 +74,7 @@ public String PrintList()
 	}
 	
 	
-	String ans = product.toString();
+	String ans = product.toString() + "\n";
 	
 	if(nextNode == null)
 	{

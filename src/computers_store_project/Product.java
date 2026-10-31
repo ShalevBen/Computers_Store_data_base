@@ -64,7 +64,7 @@ public  int getWarranty()
 public String toString()
 {
 	 String ans;
-	 ans = ("Id: " + id +"\n" +"type: " + type +"\n" + "price: " + price +"\n" +"warranty: " + warranty +"\n");
+	 ans = "Id: " + id +"\n" +"type: " + type +"\n" + "price: " + price +"\n" +"warranty: " + warranty + "\n";
 	 return ans;
 }
 

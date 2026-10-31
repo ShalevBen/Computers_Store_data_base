@@ -65,15 +65,9 @@ public Product pop()  throws Exception
 	
 	Product temp;
 	
-	if(node == null)
-	{
-		throw new NullPointerException ("cant pop beacuse stack is empty! " + "\n");
-	}
-	
 	if(isStackEmpty())
 	{
-        System.out.println("The stack is empty!");
-        return null;
+        throw new NullPointerException("The stack is empty!\n cant pop");
 	}
 	else 
 	{

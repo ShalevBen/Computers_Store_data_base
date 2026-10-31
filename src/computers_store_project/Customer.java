@@ -7,6 +7,26 @@ public class Customer
 	private double amount_payed;
 	private boolean is_vip;
 
+public Customer()
+{
+	 name ="";
+	 id =0;
+	 amount_payed = 0.0;
+	 is_vip = false;
+
+	
+}
+
+
+public Customer(Customer given_customer)
+{
+	name = given_customer.name;
+	 id =given_customer.id;
+	 amount_payed = given_customer.amount_payed;
+	 is_vip = given_customer.is_vip;
+}
+
+
 
 //constructor with params
 public Customer(String given_name,int given_id,double given_payment,boolean given_vip)
