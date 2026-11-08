@@ -8,7 +8,15 @@ public class Supplier
 	private String compeny_name;
 	private ProductLink first_Product_Node; //a linked list of products.
 	
-// 
+public Supplier()
+{
+	name = "";
+	phone_number ="";
+	compeny_name = "";
+	first_Product_Node = new ProductLink();
+	first_Product_Node = null;
+}
+	
 public Supplier(String given_name,String given_phone,String given_compeny,Product given_product)
 {
 	
@@ -27,6 +35,7 @@ public Supplier(String given_name,String given_phone,String given_compeny)
 	phone_number = given_phone;
 	compeny_name = given_compeny;
 	first_Product_Node = new ProductLink();
+    first_Product_Node = null;
 	
 }
 
@@ -78,6 +87,7 @@ public boolean Is_Product_in_the_list( int product_id)
 		return false;
 	}
 	
+    
 	ProductLink current = first_Product_Node;
 	
 	while(current != null)

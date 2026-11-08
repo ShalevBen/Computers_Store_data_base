@@ -98,15 +98,7 @@ public String toString()
 	{
 		ans += temp1.toString();
 		temp1 = temp1.getNext();
-		
-		if(temp1 == null)
-		{
-		ans += "null";	
-		}
-		
 	}
-	
-	
 	return ans;
 	
 }

@@ -9,6 +9,16 @@ public class Employee
 	private LinkedQueue costumer_line;
 	//a queue implemented as a linked list of costumers he gave service to.
 	
+public Employee()
+{
+	name= null;
+	id = 0;
+	selary = 0;
+	costumer_line = new LinkedQueue();
+	costumer_line = null;
+}
+
+
 public Employee(String given_name,int given_id,double given_selary,Customer given_customer)
 {
 		
@@ -84,12 +94,13 @@ public boolean Is_costumers_getting_served()
 
 public boolean Is_costumer_in_line(int given_id)
 {
-	Link node = costumer_line.getList().getNode();
-	if(node == null)
+	if(costumer_line.isQueueEmpty())
 	{
-		System.out.println("Cant search Line while its empty! \n");
 		return false;
 	}
+	
+	Link node = costumer_line.getList().getNode();
+	
 	Customer temp = null;
 	
 	while(node != null)

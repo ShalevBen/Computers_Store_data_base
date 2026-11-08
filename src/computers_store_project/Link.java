@@ -49,6 +49,10 @@ public String toString()
 {
 	String ans = "";
 	ans =   data + "\n" + "next is:" + "\n" ;
+	if(next == null)
+	{
+		ans += "null";
+	}
 	return ans;
 			
 }

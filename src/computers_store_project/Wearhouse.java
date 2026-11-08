@@ -26,7 +26,7 @@ public class Wearhouse
 		item_list = new MyLinkedStack(given_product);
 	}
 
-	public MyLinkedStack get_stack()
+	public MyLinkedStack get_Stack()
 	{
 		return item_list;
 	}
@@ -66,15 +66,15 @@ public class Wearhouse
 	{
 		if(wearhouse_employees[0] == null)
 		{
-			throw new NullPointerException("The array is empty!\n"
-					+ "cant chack if employee in array!");
+			System.out.println("The array is empty! so no employee is in it \n");
+			return false;
 		}
 
-		for(int i = 0; i < CountArraySlots(wearhouse_employees); i++)
+		for(int i = 0; i < wearhouse_employees.length; i++)
 		{
 			if(wearhouse_employees[i] != null)
 			{
-				if(wearhouse_employees[i].equals(given_employee))
+				if(wearhouse_employees[i].get_id() == given_employee.get_id())
 				{
 					return true;
 				}
@@ -88,7 +88,8 @@ public class Wearhouse
 	{
 		if(wearhouse_suppliers[0] == null)
 		{
-
+			System.out.println("The array is empty so no employee is in it! \n");
+			return false;
 		}
 
 		for(int i = 0; i < CountArraySlots(wearhouse_suppliers); i++)
@@ -122,7 +123,8 @@ public class Wearhouse
 			return;
 		}
 
-		for(int i = 0; i < wearhouse_employees.length; i++)
+		// goes over the whole array adn look for an empty slot to insert.
+		for(int i = 0; i <wearhouse_employees.length ; i++)
 		{
 			if(wearhouse_employees[i] == null)
 			{
@@ -131,8 +133,8 @@ public class Wearhouse
 			}
 		}
 
-		throw new RuntimeException("the array is full and cant add this employee!" + "\n");
-
+		System.out.println("the array is full and cant add this employee!" + "\n");
+		return;
 	}
 
 	public void Add_employee(Employee given_employee)
@@ -150,7 +152,7 @@ public class Wearhouse
 			return;
 		}
 
-		for(int i = 0; i < CountArraySlots(wearhouse_employees); i++)
+		for(int i = 0; i < wearhouse_employees.length; i++)
 		{
 			if(wearhouse_employees[i] == null)
 			{
@@ -177,8 +179,11 @@ public class Wearhouse
 
 
 	}
+
 	public void Remove_employee(String given_name , int given_id)
 	{
+	
+		int index = 0;
 		Employee temp = new Employee(given_name,given_id);
 
 		if(!Is_employee_in_array(temp))
@@ -192,23 +197,70 @@ public class Wearhouse
 			return;	
 		}
 
-
-		int count = CountArraySlots(wearhouse_employees);
-		// will remove the employee and sort the array back in order.
-		for(int i = 0; i < count-1; i++)
-		{
-
-			if(wearhouse_employees[i].get_id() == given_id && wearhouse_employees[i].get_name().equals(given_name))
+		// we can use this way,find the  index of the correct obj,
+        //than after that make a shift for all the other 
+        //or go with the approch below whice does the finding the right obj and sorting the array both in the same loop
+		for(int i = 0; i < wearhouse_employees.length ; i++)
 			{
-				wearhouse_employees[i] = null;
-			}
+	
+                if(wearhouse_employees[i] != null) 
+                {
+                    
+					if(wearhouse_employees[i].get_id() == given_id && wearhouse_employees[i].get_name().equals(given_name))
+					{
+						wearhouse_employees[i] = null;
+                        index =i;
+                        break;
+					}
+				}
+            }
 
-			if(wearhouse_employees[i] == null && wearhouse_employees[i+1] != null)
+            for(int i = index; i < wearhouse_employees.length-1; i++)
+            {
+                if(wearhouse_employees[i] == null && wearhouse_employees[i+1] != null)
 			{
 				wearhouse_employees[i] = wearhouse_employees[i+1];
 				wearhouse_employees[i+1] = null;
 			}
-		}
+            }
+
+
+
+//		// will remove the employee and sort the array back in order.
+//		for(int i = 0; i < wearhouse_employees.length-2 ; i++)
+//		{
+//
+//			if(wearhouse_employees[i] != null) 
+//			{
+//
+//				if(wearhouse_employees[i].get_id() == given_id && wearhouse_employees[i].get_name().equals(given_name))
+//				{
+//					wearhouse_employees[i] = null;
+//				}
+//			}
+//
+//			if(wearhouse_employees[i] == null && wearhouse_employees[i+1] != null)
+//			{
+//				wearhouse_employees[i] = wearhouse_employees[i+1];
+//				wearhouse_employees[i+1] = null;
+//			}
+//			
+//			if(wearhouse_employees[i] == null && wearhouse_employees[i+1] == null)
+//			{
+//				wearhouse_employees[i+1] = wearhouse_employees[i+2];
+//				wearhouse_employees[i+2] = null;
+//				wearhouse_employees[i] = wearhouse_employees[i+1];
+//			}
+//		}
+//		
+//		if(wearhouse_employees[9] != null && wearhouse_employees[8] == null)
+//		{
+//			wearhouse_employees[8] = wearhouse_employees[9];
+//			wearhouse_employees[9] = null;
+//			
+//		}
+
+
 
 
 
@@ -276,28 +328,40 @@ public class Wearhouse
 
 	public void Remove_supplier(String given_phone)
 	{
+		
+		if(!Is_supplier_in_array(given_phone))
+		{
+			System.out.println("The supplier is not in the array! cant remove him ! \n");
+			return;
+			
+		}
+		
 		if(wearhouse_suppliers[0] == null)
 		{
 			System.out.println("Cant remove the requested Supplier the array is empty! \n");
 			return;	
 		}
 
-		// will remove the supplier and sort the array back in order.
-		for(int i = 0; i < CountArraySlots(wearhouse_suppliers)-1; i++)
-		{
+		// will remove the employee and sort the array back in order.
+				for(int i = 0; i < wearhouse_suppliers.length-1 ; i++)
+				{
 
-			if(wearhouse_suppliers[i].getPhone().equals(given_phone))
-			{
-				wearhouse_suppliers[i] = null;
-			}
+					if(wearhouse_suppliers[i] != null) 
+					{
 
-			if(wearhouse_suppliers[i] == null && wearhouse_suppliers[i+1] != null)
-			{
-				wearhouse_suppliers[i] = wearhouse_suppliers[i+1];
-				wearhouse_suppliers[i+1] = null;
-			}
-		}
+						if(wearhouse_suppliers[i].getPhone().equals(given_phone))
+						{
+							wearhouse_suppliers[i] = null;
+						}
+					}
 
+					if(wearhouse_suppliers[i] == null && wearhouse_suppliers[i+1] != null)
+					{
+						wearhouse_suppliers[i] = wearhouse_suppliers[i+1];
+						wearhouse_suppliers[i+1] = null;
+					}
+				}
+		
 
 
 
@@ -305,7 +369,7 @@ public class Wearhouse
 
 	///* this method will take the item by its id from the Supplier and place in in the wearhouse*/
 	///* supplier will have an item he is suppling and this will be the item that will go to the wearhouse*/
-	public void Add_to_wearhouse_from_supplier(String given_phone,int given_item_id)
+	public void Add_to_wearhouse_from_supplier(String given_phone,int given_item_id) throws Exception
 	{
 
 		if(wearhouse_suppliers[0] == null)
@@ -327,19 +391,28 @@ public class Wearhouse
 			{
 				continue;
 			}
+
 			if(wearhouse_suppliers[i].getPhone().equals(given_phone))
 			{
 				if(wearhouse_suppliers[i].Is_Product_in_the_list(given_item_id))
 				{
 					//this is the BOX not the PRODUCT
 					temp = wearhouse_suppliers[i].removeProduct(given_item_id);
-					item_list.push(temp.getProduct());
-					System.out.println(temp + "\n" + "was added to the stack.");
-					return;
+					if(temp != null)
+					{
+						item_list.push(temp.getProduct());
+						System.out.println(temp + "\n" + "was added to the stack.");
+						return;
+					}
 				}
+
 			}
 
 		}
+
+         throw new Exception("The requested item from the spacific supplier" + "can not be found! \n");
+
+
 
 	}
 
@@ -381,6 +454,7 @@ public class Wearhouse
 		Product temp1 = (Product)item_list.getNode().getData();
 		while(temp != null)
 		{
+            temp1 = (Product)temp.getData();
 			if (temp1.getId() == given_id)
 			{
 				return temp1;
@@ -388,7 +462,6 @@ public class Wearhouse
 			else 
 			{
 				temp = temp.getNext();
-				temp1 = (Product)temp.getData();
 			}
 		}
 		throw new NullPointerException("The requested id was not found! \n");

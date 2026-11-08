@@ -1,9 +1,7 @@
 // package computers_store_project;
 
-
 // public class MainTester {
 
-	
 // 	public static void main(String[] args) {
 
 // 		System.out.println("--- computers_store_project: Main Tester ---\n");
@@ -118,19 +116,18 @@
 		
 // 		System.out.println("The employee array before the changes: \n" + w1.Show_employees() + "\n");
 // 		System.out.println("Removing an employee from the wearhouse! \n");
-// 		w1.Remove_employee(e1.get_name(),e1.get_id());
+// 		w1.Remove_employee("Emp1",101);
 		
 // 		System.out.println("The wearhouse array after changes");
 // 		System.out.println(w1.Show_employees());
 		
 // 		System.out.println("Add an iteam from one of the suppliers! \n");
-// 		w1.Add_to_wearhouse_from_supplier(given_phone, given_item_id);
+// 		w1.Add_to_wearhouse_from_supplier("0501234567", 298675093);
 		
 // 		System.out.println("The wearhouse after the iteam was added! \n" + w1.get_stack().toString()+"\n");
 		
 		
-// 		System.out.println("testin the Wearhouse pop function whan there is a product the wearhouse" + "\n");
-// 		;
+// 		System.out.println("testing the Wearhouse pop function whan there is a product the wearhouse" + "\n");
 // 		try {
 // 			//poping the k2 from the stack.
 // 			Product p =  w1.get_stack().pop();
@@ -141,13 +138,13 @@
 // 		}
 
 // 		System.out.println("test to push to the stack" + "\n");
-// 		if(!(w1.is_in_wearhouse(k2.getId())))
+// 		if(!(w1.Is_product_in_wearhouse(k2.getId())))
 // 		{
 // 			w1.get_stack().push(k2);
 
 // 		}
 // 		System.out.println("The item:" + k2.toString()+"\n" + "already in the stack! \n");
-// 		if(!(w1.is_in_wearhouse(k1.getId())))
+// 		if(!(w1.Is_product_in_wearhouse(k1.getId())))
 // 		{
 // 			w1.get_stack().push(k1);	  
 // 		}
@@ -175,18 +172,18 @@
 // 		System.out.println(s1.getList().PrintList());
 		
 // 		System.out.println("The details of the supplier we trying to remove an item from! \n" + s1.toString() + "\n");
-// //		ProductLink p = s1.removeProduct(k1.getId());
-// //		System.out.println("The product we got from the supplier is: \n" +p.toString() + "\n");
-// //		
-// //		
+// 		ProductLink p = s1.removeProduct(k1.getId());
+// 		System.out.println("The product we got from the supplier is: \n" +p.toString() + "\n");
+		
+	
 // 		ProductLink p1 = s1.removeProduct(k2.getId());
 // 		System.out.println("The product we got from the supplier is: \n" +p1.toString() + "\n");
 		
-// //		ProductLink p2 = s1.removeProduct(k3.getId());
-// //		System.out.println("The product we got from the supplier is: \n" +p2.toString() + "\n");
-// //
-// //		ProductLink p3 = s1.removeProduct(k4.getId());
-// //		System.out.println("The product we got from the supplier is: \n" +p3.toString() + "\n");
+// 	ProductLink p2 = s1.removeProduct(k3.getId());
+// 		System.out.println("The product we got from the supplier is: \n" +p2.toString() + "\n");
+
+// 		ProductLink p3 = s1.removeProduct(k4.getId());
+// 		System.out.println("The product we got from the supplier is: \n" +p3.toString() + "\n");
 		
 
 // 		System.out.println("testing the show supplier method.\n");
