@@ -156,7 +156,7 @@ public ProductLink removeProduct(int given_id)
 		return null;
 	}
 	
-	//you must create a new objwith new to prevent changing the original list.
+	//you must create a new obj with new to prevent changing the original list.
 	//and to prevent the other nodes aside from the first to change.
 	ProductLink curr = first_Product_Node; 
 	ProductLink ans = null;
@@ -166,8 +166,8 @@ public ProductLink removeProduct(int given_id)
 	if(curr.getProduct().getId() == given_id)
 	{
 		ans = curr;
-		ans.setNextNode(null);
 		first_Product_Node = first_Product_Node.getNextNode();
+		ans.setNextNode(null);
 		return ans;
 	}
 	
