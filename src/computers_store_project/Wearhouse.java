@@ -4,13 +4,13 @@ public class Wearhouse
 {
 	private Employee[] wearhouse_employees;
 	private Supplier[]  wearhouse_suppliers;
-	private MyLinkedStack item_list; // stack of products
+	private MyLinkedStack item_stack; // stack of products
 
 	public Wearhouse()
 	{
 		wearhouse_employees = new Employee[10];
 		wearhouse_suppliers = new Supplier[10];
-		item_list = new MyLinkedStack();
+		item_stack = new MyLinkedStack();
 	}
 
 	public 	Wearhouse( Product given_product,Employee given_employee,Supplier given_supplier)
@@ -23,12 +23,12 @@ public class Wearhouse
 	 an empty wearhouse at the start dosent make sanse. */
 		wearhouse_employees[0] = given_employee;
 		wearhouse_suppliers[0] = given_supplier;
-		item_list = new MyLinkedStack(given_product);
+		item_stack = new MyLinkedStack(given_product);
 	}
 
 	public MyLinkedStack get_Stack()
 	{
-		return item_list;
+		return item_stack;
 	}
 
 	public String toString()
@@ -42,7 +42,7 @@ public class Wearhouse
 				+ "the suppliers's are: " + "\n"
 				+ Show_suppliers() + "\n"
 				+ "the items in the wearhouse are: \n"
-				+ item_list.toString() + "\n";
+				+ item_stack.toString() + "\n";
 	}
 
 	public int CountArraySlots(Object[] given_array)
@@ -297,6 +297,37 @@ public class Wearhouse
 
 	}
 
+	public void Add_New_supplier(String given_name,String given_phone,String given_compeny,Product given_Product)
+	{
+		Supplier given_supplier = new Supplier(given_name,given_phone,given_compeny,given_Product); // create an employee
+		// notice this employee has no salary and his list is empty.
+
+		if(wearhouse_suppliers[0] == null)
+		{
+			wearhouse_suppliers[0] = given_supplier;
+			return;
+		}
+
+		if(Is_supplier_in_array(given_supplier.getPhone()))
+		{
+			System.out.println("the supplier already in the array!" + "\n");
+			return;
+		}
+
+		for(int i = 0; i < wearhouse_suppliers.length; i++)
+		{
+			if(wearhouse_suppliers[i] == null)
+			{
+				wearhouse_suppliers[i] = given_supplier;
+				return;
+			}
+		}
+
+		throw new RuntimeException("the array is full and cant add this supplier!" + "\n");
+
+
+	}
+
 	public void Add_supplier(Supplier given_supplier)
 	{
 
@@ -328,7 +359,7 @@ public class Wearhouse
 
 	public void Remove_supplier(String given_phone)
 	{
-
+		int index =0;
 		if(!Is_supplier_in_array(given_phone))
 		{
 			System.out.println("The supplier is not in the array! cant remove him ! \n");
@@ -343,7 +374,7 @@ public class Wearhouse
 		}
 
 		// will remove the employee and sort the array back in order.
-		for(int i = 0; i < wearhouse_suppliers.length-1 ; i++)
+		for(int i = 0; i < wearhouse_suppliers.length ; i++)
 		{
 
 			if(wearhouse_suppliers[i] != null) 
@@ -352,20 +383,21 @@ public class Wearhouse
 				if(wearhouse_suppliers[i].getPhone().equals(given_phone))
 				{
 					wearhouse_suppliers[i] = null;
+					index = i;
+					break;
 				}
 			}
+		}
 
+		for(int i = index; i< wearhouse_suppliers.length-1; i++)
 			if(wearhouse_suppliers[i] == null && wearhouse_suppliers[i+1] != null)
 			{
 				wearhouse_suppliers[i] = wearhouse_suppliers[i+1];
 				wearhouse_suppliers[i+1] = null;
 			}
-		}
-
-
-
-
 	}
+
+
 
 	///* this method will take the item by its id from the Supplier and place in in the wearhouse*/
 	///* supplier will have an item he is suppling and this will be the item that will go to the wearhouse*/
@@ -401,18 +433,18 @@ public class Wearhouse
 						temp = wearhouse_suppliers[i].removeProduct(given_item_id);
 						if(temp != null)
 						{
-							item_list.push(temp.getProduct());
+							item_stack.push(temp.getProduct());
 							System.out.println(temp + "\n" + "was added to the stack.");
 							return;
 						}
 					}
 					else
 					{
-							System.out.println("The item is already in the wearhouse !\n");
-							return;
+						System.out.println("The item is already in the wearhouse !\n");
+						return;
 					}
 
-					
+
 				}
 
 			}
@@ -428,12 +460,12 @@ public class Wearhouse
 	///* this meathod will chack by id if an  item is already in the wearhouse*/
 	public boolean Is_product_in_wearhouse(int given_id) 
 	{
-		if(item_list.isStackEmpty())
+		if(item_stack.isStackEmpty())
 		{
 			return false;
 		}
 
-		Link p = item_list.getNode();
+		Link p = item_stack.getNode();
 		Product p1 = null;
 		while(p != null)
 		{
@@ -459,8 +491,8 @@ public class Wearhouse
 
 		}
 
-		Link temp = item_list.getNode();
-		Product temp1 = (Product)item_list.getNode().getData();
+		Link temp = item_stack.getNode();
+		Product temp1 = (Product)item_stack.getNode().getData();
 		while(temp != null)
 		{
 			temp1 = (Product)temp.getData();
@@ -478,29 +510,49 @@ public class Wearhouse
 
 	public Product remove_product_from_wearhouse(int given_id) 
 	{
-		if(item_list.isStackEmpty())
+		if(item_stack.isStackEmpty())
 		{
 			throw new NullPointerException("cant remove beacuse the wearhouse is empty!" +"\n");
 		}
 
-		else
-		{
-			Link p = item_list.getNode();
-			Product p1 = (Product)item_list.getNode().getData();
-			while(p != null)
-			{
-				if (p1.getId() == given_id)
-				{
-					return p1;
-				}
-				else 
-					p = p.getNext();
-			}
+		MyLinkedStack temp_stack = new MyLinkedStack();
+		Product temp_p = null;
 
+
+		//if the stack is not empty we pop an item to chack
+		//if the item is matching with the id, than we go and return all the items
+		// that we poped out back into the og stack.
+		while(!item_stack.isStackEmpty())
+		{
+			temp_p = item_stack.pop();
+
+			if(temp_p.getId() == given_id)
+			{
+				while(!temp_stack.isStackEmpty())
+				{
+					item_stack.push(temp_stack.pop());
+
+				}
+				return temp_p;
+			}
+			temp_stack.push(temp_p);
 		}
 
-		throw new NullPointerException("cant remove beacuse no product was found macthign the id!" +"\n");
+		//if we dont find the requested item we return the stack to place.
+		temp_p = temp_stack.pop();
+		while(temp_p != null)
+		{
+			item_stack.push(temp_p);
+			temp_p = temp_stack.pop();
+		}
+
+
+
+		System.out.println("We didnt find the requested product! \n");
+		return temp_p;
 	}
+
+
 
 	// printing the whole Employee's array
 	public String Show_employees()

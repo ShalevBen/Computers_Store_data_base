@@ -6,15 +6,15 @@ public class Supplier
 	private String name;
 	private String phone_number;
 	private String compeny_name;
-	private ProductLink first_Product_Node; //a linked list of products.
+	private ProductLink product_list; //a linked list of products.
 	
 public Supplier()
 {
 	name = "";
 	phone_number ="";
 	compeny_name = "";
-	first_Product_Node = new ProductLink();
-	first_Product_Node = null;
+	product_list = new ProductLink();
+	product_list = null;
 }
 	
 public Supplier(String given_name,String given_phone,String given_compeny,Product given_product)
@@ -24,7 +24,7 @@ public Supplier(String given_name,String given_phone,String given_compeny,Produc
 	name = given_name;
 	phone_number = given_phone;
 	compeny_name = given_compeny;
-	first_Product_Node = new ProductLink(given_product);
+	product_list = new ProductLink(given_product);
 }
 
 public Supplier(String given_name,String given_phone,String given_compeny)
@@ -34,8 +34,8 @@ public Supplier(String given_name,String given_phone,String given_compeny)
 	name = given_name;
 	phone_number = given_phone;
 	compeny_name = given_compeny;
-	first_Product_Node = new ProductLink();
-    first_Product_Node = null;
+	product_list = new ProductLink();
+    product_list = null;
 	
 }
 
@@ -57,23 +57,25 @@ return compeny_name;
 
 public ProductLink getList()
 {
-	return first_Product_Node;
+	return product_list;
 }
 
-
+// we have to take in concidiration that the product list can be null so we cant print a list 
+// that is null.
 public String toString()
 {
 	String ans;
 	
 	ans = "name: " + name + "\n" +"phone number: " +phone_number +"\n" + "compeny_name: " +compeny_name 
-			+"\n"+"Suppliers Products: \n" +"\n" + first_Product_Node.PrintList() + "\n";
+			+"\n"+"Suppliers Products: \n" +"\n"+
+			(product_list == null ? "null \n" : product_list.PrintList()+"\n") + "\n";
 	return ans;
 }
 
 //chacks if the list is empty
 public boolean isListEmpty()
 {
-	return first_Product_Node == null; 	
+	return product_list == null; 	
 }
 
 /* this function goes in the list and look inside it
@@ -88,7 +90,7 @@ public boolean Is_Product_in_the_list( int product_id)
 	}
 	
     
-	ProductLink current = first_Product_Node;
+	ProductLink current = product_list;
 	
 	while(current != null)
 	{
@@ -110,10 +112,10 @@ public boolean Is_Product_in_the_list( int product_id)
 //insert a Product to the end of the list.
 public void addLastProduct(Product given_product)
 {
-	// if the list is empty we will set the given_product into the first slot of the list.
+	// if the list is empty we will create a new list and set its item as the given item..
 	if (isListEmpty())
 	{
-		first_Product_Node.setProduct(given_product);
+		product_list = new ProductLink(given_product);
 		return;
 		
 	}
@@ -128,7 +130,7 @@ public void addLastProduct(Product given_product)
 		}
 		else 
 		{
-			ProductLink temp = first_Product_Node;
+			ProductLink temp = product_list;
 			
 			while(temp != null)
 			{
@@ -158,7 +160,7 @@ public ProductLink removeProduct(int given_id)
 	
 	//you must create a new obj with new to prevent changing the original list.
 	//and to prevent the other nodes aside from the first to change.
-	ProductLink curr = first_Product_Node; 
+	ProductLink curr = product_list; 
 	ProductLink ans = null;
 	ProductLink prev = curr;
 	
@@ -166,7 +168,7 @@ public ProductLink removeProduct(int given_id)
 	if(curr.getProduct().getId() == given_id)
 	{
 		ans = curr;
-		first_Product_Node = first_Product_Node.getNextNode();
+		product_list = product_list.getNextNode();
 		ans.setNextNode(null);
 		return ans;
 	}

@@ -29,9 +29,6 @@ public boolean isStackEmpty()
 	return (node == null);
 }
 
-
-
-
 public void push(Object data)
 {
 	//creates a new node
@@ -60,14 +57,14 @@ public void push(Object data)
 	
 }
 
-public Product pop()  throws Exception
+public Product pop()
 {
 	
 	Product temp;
 	
 	if(isStackEmpty())
 	{
-        throw new NullPointerException("The stack is empty!\n cant pop");
+        return null;
 	}
 	else 
 	{
