@@ -21,6 +21,11 @@ public Link getNode()
 
 }
 
+/**
+ * Counts and returns the total number of nodes in the linked list.
+ *
+ * @return Size of the list.
+ */
 public int length()
 {
 	Link temp = Node;
@@ -42,6 +47,11 @@ public int length()
 	return counter;
 }
 
+/**
+ * Checks whether the linked list is empty (head node is null).
+ *
+ * @return True if empty; false otherwise.
+ */
 public boolean isEmpty()
 { //make sure to see that if the first == null. it dosent mean it dont exist, it exist but its empty.
   // you can see it in your deafult constructor, in it first == null. whice mean it exist but its empty.
@@ -53,6 +63,11 @@ public boolean isEmpty()
 	
 }
 
+/**
+ * Appends a new node containing the specified data to the end of the list.
+ *
+ * @param data Object to add at the end.
+ */
 public void addLast(Object data) 
 {
 	Link newLink = new Link(data, null);
@@ -74,6 +89,11 @@ public void addLast(Object data)
 	
 	}
 
+/**
+ * Removes and returns data from the first (head) node of the list.
+ *
+ * @return Data from the removed head node, or null if list is empty.
+ */
 public Object removeFirst(){
 	Object ans;
 	
@@ -91,6 +111,11 @@ public Object removeFirst(){
 	return ans;
 }
 
+/**
+ * Traverses and converts all elements in the linked list into a formatted string.
+ *
+ * @return String representation of the entire list.
+ */
 public String toString()
 {
 	String ans = "";
@@ -115,8 +140,6 @@ public String toString()
 				ans += temp.toString();
 				temp = temp.getNext();
 			}
-				ans += "null";
-			
 	}
 	return ans;
 }

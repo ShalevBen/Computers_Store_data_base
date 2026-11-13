@@ -30,7 +30,7 @@ public Employee(String given_name,int given_id,double given_selary,Customer give
 }
  /*
   * a constructor that will build a basic employee */
-public Employee(String given_name,int given_id)
+public Employee(int given_id,String given_name)
 {
 		
 		name = given_name;
@@ -86,12 +86,22 @@ public String toString()
 	return ans;
 }
 
-//chackeing if the employee is serving costumers or not. (if the q is empty )
+/**
+ * Checks if the employee is currently serving customers (queue is not empty).
+ *
+ * @return True if there are customers waiting; false if queue is empty.
+ */
 public boolean Is_costumers_getting_served()
 {
 	return !(costumer_line.isQueueEmpty());
 }
 
+/**
+ * Checks if a specific customer is currently in this employee's queue.
+ *
+ * @param given_id The ID of the customer to search for.
+ * @return True if customer is in line; false otherwise.
+ */
 public boolean Is_costumer_in_line(int given_id)
 {
 	if(costumer_line.isQueueEmpty())
@@ -117,18 +127,29 @@ public boolean Is_costumer_in_line(int given_id)
 	
 }
 	
+/**
+ * Adds a customer to the end of the employee's service queue if they are not already in it.
+ *
+ * @param given_costumer The Customer to add.
+ */
 public void enqueue_line(Customer given_costumer)
 {
 	if(Is_costumer_in_line(given_costumer.getId()))
 	{
-		System.out.println("The costumer is already in the Line! \n");
 		return;
 	}
 	//inserting the costumer to the queue
 	costumer_line.Enqueue(given_costumer);
 }
 
-//looking through the queue and bringing the costumer.
+
+/**
+ * Searches for a customer in the queue by ID without removing them.
+ * Cycles through the queue and restores original FIFO order.
+ *
+ * @param given_id The ID of the customer to find.
+ * @return The Customer object if found; null otherwise.
+ */
 public Customer search_costumer(int given_id)
 {
 	LinkedQueue temp_q = new LinkedQueue();
@@ -169,6 +190,14 @@ public Customer search_costumer(int given_id)
 		return temp_c1;
 }
 
+/**
+ * Removes and returns a specific customer from the queue by ID while
+ * maintaining the relative order of all other customers.
+ *
+ * @param given_id The ID of the customer to remove.
+ * @return The removed Customer instance, or null if not found.
+ * @throws Exception If the queue is empty.
+ */
 public Customer dequeue_line(int given_id) throws Exception
 {
 	
@@ -219,6 +248,9 @@ public Customer dequeue_line(int given_id) throws Exception
 	return temp_c_2;
 }
 	
+/**
+ * Prints all customers currently waiting in the employee's line to the console.
+ */
 public void PrintLine()
 {
 	System.out.println(costumer_line.printLinkedQueue());

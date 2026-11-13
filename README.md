@@ -1,2 +1,2 @@
-# Computers_Store_data_base
-final project for java class
+This is a README about my computer store data base system. 
+

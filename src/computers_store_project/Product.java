@@ -68,7 +68,11 @@ public String toString()
 	 return ans;
 }
 
-//gives a disc to a product
+/**
+ * Applies a percentage discount to the product price.
+ *
+ * @param dis Percentage discount to deduct (e.g., 10 for 10%, 20 for 20%).
+ */
 public void GiveDiscount(double dis)
 {
 	double precent = dis/100; //gives the amount of discount like 10% or 20%...
@@ -76,7 +80,11 @@ public void GiveDiscount(double dis)
 	setPrice(getPrice()-discount); //new price
 }
 
-//will calculate the price after vat
+/**
+ * Calculates the product price including 18% standard VAT.
+ *
+ * @return Final price after VAT.
+ */
 public double applyVat()
 {
 	double VatInIsreal = 0.18;
@@ -85,7 +93,12 @@ public double applyVat()
 	return after_vat;
 }
 
-//will add\subtract warranty, return a massage if wasnt spacifid
+/**
+ * Modifies the product warranty period by adding or subtracting months.
+ *
+ * @param type             "add" to increase warranty; "subtract" to decrease warranty.
+ * @param number_to_change Number of months to adjust.
+ */
 public void change_warrenty(String type,int number_to_change)
 {
 	

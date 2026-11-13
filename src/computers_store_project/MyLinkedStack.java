@@ -23,12 +23,21 @@ public Link getNode()
 return node;	
 }
 
-//Checks if we have an empty stack
+/**
+ * Checks if the stack has no items.
+ *
+ * @return True if stack is empty; false otherwise.
+ */
 public boolean isStackEmpty()
 {
 	return (node == null);
 }
 
+/**
+ * Pushes a new product onto the top of the stack.
+ *
+ * @param data Product object to add to the stack.
+ */
 public void push(Object data)
 {
 	//creates a new node
@@ -57,6 +66,11 @@ public void push(Object data)
 	
 }
 
+/**
+ * Pops and removes the top product from the stack (LIFO order).
+ *
+ * @return The Product that was on top, or null if empty.
+ */
 public Product pop()
 {
 	
@@ -78,7 +92,11 @@ public Product pop()
 	return temp;
 }
 
-
+/**
+ * Returns a string representation of all products currently on the stack from top to bottom.
+ *
+ * @return String of stacked elements.
+ */
 public String toString()
 {
 	

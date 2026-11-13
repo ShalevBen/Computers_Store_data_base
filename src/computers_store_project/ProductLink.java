@@ -64,7 +64,11 @@ public String toString()
 	
 
 }
-//use this method to print the list not toString().
+/**
+ * Traverses and prints the entire linked list of products from this node forward.
+ *
+ * @return String containing all chained products.
+ */
 public String PrintList()
 {
 	if(product == null)

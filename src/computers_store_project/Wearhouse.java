@@ -25,6 +25,19 @@ public class Wearhouse
 		wearhouse_suppliers[0] = given_supplier;
 		item_stack = new MyLinkedStack(given_product);
 	}
+	
+	public 	Wearhouse( Employee given_employee,Supplier given_supplier)
+	{
+		/* creating a wearhouse with defult amount of suppliers and employees*/
+		wearhouse_employees = new Employee[10];
+		wearhouse_suppliers = new Supplier[10];
+
+		/*initialating the wearhosue so it wont be empty ever.
+	 an empty wearhouse at the start dosent make sanse. */
+		wearhouse_employees[0] = given_employee;
+		wearhouse_suppliers[0] = given_supplier;
+		item_stack = new MyLinkedStack();
+	}
 
 	public MyLinkedStack get_Stack()
 	{
@@ -45,6 +58,12 @@ public class Wearhouse
 				+ item_stack.toString() + "\n";
 	}
 
+	/**
+	 * Counts the number of non-null elements currently stored in an array.
+	 *
+	 * @param given_array Array of objects to inspect.
+	 * @return The count of occupied slots.
+	 */
 	public int CountArraySlots(Object[] given_array)
 	{
 		int count = 0;
@@ -61,63 +80,27 @@ public class Wearhouse
 
 		return count;
 	}
-
-	public boolean Is_employee_in_array(Employee given_employee)
-	{
-		if(wearhouse_employees[0] == null)
-		{
-			System.out.println("The array is empty! so no employee is in it \n");
-			return false;
-		}
-
-		for(int i = 0; i < wearhouse_employees.length; i++)
-		{
-			if(wearhouse_employees[i] != null)
-			{
-				if(wearhouse_employees[i].get_id() == given_employee.get_id())
-				{
-					return true;
-				}
-			}
-		}
-
-		return false;
-	}
-	//identify the supplier by a uniqe identifier.
-	public boolean Is_supplier_in_array(String given_phone)
-	{
-		if(wearhouse_suppliers[0] == null)
-		{
-			System.out.println("The array is empty so no employee is in it! \n");
-			return false;
-		}
-
-		for(int i = 0; i < CountArraySlots(wearhouse_suppliers); i++)
-		{
-			if(wearhouse_suppliers[i] != null) 
-			{
-				if(wearhouse_suppliers[i].getPhone().equals(given_phone))
-				{
-					return true;
-				}
-			}
-		}
-
-		return false;
-	}
-
+ 
+	/**
+	 * Creates a new Employee with the provided name and ID, and adds them to the 
+	 * first empty slot in the employee array if not already present.
+	 *
+	 * @param given_name Name of the new employee.
+	 * @param given_id   Unique ID of the new employee.
+	 */
 	public void Add_New_employee(String given_name , int given_id)
 	{
-		Employee given_employee = new Employee(given_name,given_id); // create an employee
+		Employee given_employee = new Employee(given_id,given_name); // create an employee
 		// notice this employee has no salary and his list is empty.
 
 		if(wearhouse_employees[0] == null)
 		{
 			wearhouse_employees[0] = given_employee;
+			System.out.println("added: \n" + given_name + "\n" + given_id + "\n" + "to the Wearhouse \n");
 			return;
 		}
 
-		if(Is_employee_in_array(given_employee))
+		if(Is_employee_in_array(given_employee.get_id()))
 		{
 			System.out.println("the employee already in the array!" + "\n");
 			return;
@@ -129,6 +112,7 @@ public class Wearhouse
 			if(wearhouse_employees[i] == null)
 			{
 				wearhouse_employees[i] = given_employee;
+				System.out.println("added: \n" + given_name + "\n" + given_id + "\n" + "to the Wearhouse \n");
 				return;
 			}
 		}
@@ -137,6 +121,13 @@ public class Wearhouse
 		return;
 	}
 
+	/**
+	 * Adds an existing Employee object to the first available slot in the warehouse 
+	 * employee array.
+	 *
+	 * @param given_employee The Employee instance to add.
+	 * @throws RuntimeException If the employee array is full.
+	 */
 	public void Add_employee(Employee given_employee)
 	{
 
@@ -146,7 +137,7 @@ public class Wearhouse
 			return;
 		}
 
-		if(Is_employee_in_array(given_employee))
+		if(Is_employee_in_array(given_employee.get_id()))
 		{
 			System.out.println("the employee already in the array!" + "\n");
 			return;
@@ -164,7 +155,13 @@ public class Wearhouse
 		throw new RuntimeException("the array is full and cant add this employee!" + "\n");
 
 	}
-
+	
+	/**
+	 * Searches for an employee in the employee array by their unique ID.
+	 *
+	 * @param given_id The ID of the employee to look up.
+	 * @return The Employee object if found; null otherwise.
+	 */
 	public Employee Search_employee(int given_id) 
 	{
 		for(int i = 0; i< CountArraySlots(wearhouse_employees); i++)
@@ -179,15 +176,50 @@ public class Wearhouse
 
 
 	}
+	
+	/**
+	 * Checks whether a specific employee exists in the warehouse employee array by matching ID.
+	 *
+	 * @param given_employee The employee to search for.
+	 * @return true if the employee is found; false otherwise.
+	 */
+	public boolean Is_employee_in_array(int given_id)
+	{
+		if(wearhouse_employees[0] == null)
+		{
+			return false;
+		}
 
+		for(int i = 0; i < wearhouse_employees.length; i++)
+		{
+			if(wearhouse_employees[i] != null)
+			{
+				if(wearhouse_employees[i].get_id() == given_id)
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+	
+	/**
+	 * Removes an employee matching the given name and ID, shifting all subsequent
+	 * elements to the left to maintain continuous array order without gaps.
+	 *
+	 * @param given_name Name of the employee to remove.
+	 * @param given_id   ID of the employee to remove.
+	 */
 	public void Remove_employee(String given_name , int given_id)
 	{
 
 		int index = 0;
-		Employee temp = new Employee(given_name,given_id);
+		Employee temp = new Employee(given_id,given_name);
 
-		if(!Is_employee_in_array(temp))
+		if(!Is_employee_in_array(temp.get_id()))
 		{
+			System.out.println("The requested employe is not in the wearhouse ! \n");
 			return;
 		}
 
@@ -223,50 +255,57 @@ public class Wearhouse
 				wearhouse_employees[i+1] = null;
 			}
 		}
-
-
-
-		//		// will remove the employee and sort the array back in order.
-		//		for(int i = 0; i < wearhouse_employees.length-2 ; i++)
-		//		{
-		//
-		//			if(wearhouse_employees[i] != null) 
-		//			{
-		//
-		//				if(wearhouse_employees[i].get_id() == given_id && wearhouse_employees[i].get_name().equals(given_name))
-		//				{
-		//					wearhouse_employees[i] = null;
-		//				}
-		//			}
-		//
-		//			if(wearhouse_employees[i] == null && wearhouse_employees[i+1] != null)
-		//			{
-		//				wearhouse_employees[i] = wearhouse_employees[i+1];
-		//				wearhouse_employees[i+1] = null;
-		//			}
-		//			
-		//			if(wearhouse_employees[i] == null && wearhouse_employees[i+1] == null)
-		//			{
-		//				wearhouse_employees[i+1] = wearhouse_employees[i+2];
-		//				wearhouse_employees[i+2] = null;
-		//				wearhouse_employees[i] = wearhouse_employees[i+1];
-		//			}
-		//		}
-		//		
-		//		if(wearhouse_employees[9] != null && wearhouse_employees[8] == null)
-		//		{
-		//			wearhouse_employees[8] = wearhouse_employees[9];
-		//			wearhouse_employees[9] = null;
-		//			
-		//		}
-
-
-
-
-
-
+		if(Is_employee_in_array(temp.get_id()))
+		{
+			System.out.println("The requested Employee: \n" + given_id + "\n" + given_name
+			+"\n" +"was not removed from the wearhouse! \n");
+			return;
+		}
+		System.out.println("The requested Employee: \n" + given_id + "\n" + given_name
+				+"\n" +"was removed from the wearhouse! \n");
+		return;
 	}
 
+	/**
+	 * Generates a string listing all registered employees in the warehouse.
+	 *
+	 * @return A string containing all employee details, or a message if empty.
+	 */
+	public String Show_employees()
+		{
+
+			if(wearhouse_employees[0] == null)
+			{
+				return "No employees in the wearhouse still!" + "\n";
+			}
+			String ans = "";
+
+			for(int i = 0; i <CountArraySlots(wearhouse_employees) ; i++)
+			{
+
+				if(wearhouse_employees[i] != null)
+				{
+					ans += wearhouse_employees[i].toString();
+				} 
+				else
+				{
+
+					ans += "null";
+				}
+
+			}
+			return ans;
+		}
+	
+	/**
+	 * Creates and adds a new Supplier (without an initial product) into the first available 
+	 * slot in the suppliers array.
+	 *
+	 * @param given_name    Name of the supplier.
+	 * @param given_phone   Phone number of the supplier.
+	 * @param given_compeny Company name of the supplier.
+	 * @throws RuntimeException If the suppliers array is full.
+	 */
 	public void Add_New_supplier(String given_name,String given_phone,String given_compeny)
 	{
 		Supplier given_supplier = new Supplier(given_name,given_phone,given_compeny); // create an employee
@@ -297,6 +336,16 @@ public class Wearhouse
 
 	}
 
+	/**
+	 * Creates and adds a new Supplier (without an initial product) into the first available 
+	 * slot in the suppliers array.
+	 *
+	 * @param given_name    Name of the supplier.
+	 * @param given_phone   Phone number of the supplier.
+	 * @param given_compeny Company name of the supplier.
+	 * @param given_product the product that the supplier supply.
+	 * @throws RuntimeException If the suppliers array is full.
+	 */
 	public void Add_New_supplier(String given_name,String given_phone,String given_compeny,Product given_Product)
 	{
 		Supplier given_supplier = new Supplier(given_name,given_phone,given_compeny,given_Product); // create an employee
@@ -305,6 +354,7 @@ public class Wearhouse
 		if(wearhouse_suppliers[0] == null)
 		{
 			wearhouse_suppliers[0] = given_supplier;
+			System.out.println("Added: \n" + given_name + "\n" + given_phone + "\n" + given_compeny + "\n" + given_Product.toString()+"\n" + "to the wearhouse! \n");
 			return;
 		}
 
@@ -319,6 +369,7 @@ public class Wearhouse
 			if(wearhouse_suppliers[i] == null)
 			{
 				wearhouse_suppliers[i] = given_supplier;
+				System.out.println("Added: \n" + given_name + "\n" + given_phone + "\n" + given_compeny + "\n" + given_Product.toString()+"\n" + "to the wearhouse! \n");
 				return;
 			}
 		}
@@ -328,6 +379,12 @@ public class Wearhouse
 
 	}
 
+	/**
+	 * Adds an existing Supplier object into the warehouse suppliers array if not already present.
+	 *
+	 * @param given_supplier The Supplier instance to add.
+	 * @throws RuntimeException If the suppliers array is full.
+	 */
 	public void Add_supplier(Supplier given_supplier)
 	{
 
@@ -357,6 +414,40 @@ public class Wearhouse
 
 	}
 
+	/**
+	 * Checks whether a supplier exists in the warehouse supplier array by matching their phone number.
+	 *
+	 * @param given_phone Unique phone number of the supplier.
+	 * @return true if the supplier is present; false otherwise.
+	 */
+	public boolean Is_supplier_in_array(String given_phone)
+	{
+		if(wearhouse_suppliers[0] == null)
+		{
+			System.out.println("The array is empty so no employee is in it! \n");
+			return false;
+		}
+
+		for(int i = 0; i < CountArraySlots(wearhouse_suppliers); i++)
+		{
+			if(wearhouse_suppliers[i] != null) 
+			{
+				if(wearhouse_suppliers[i].getPhone().equals(given_phone))
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+	
+	/**
+	 * Removes a supplier by their phone number and shifts subsequent array elements 
+	 * left to prevent null gaps.
+	 *
+	 * @param given_phone Phone number of the supplier to remove.
+	 */
 	public void Remove_supplier(String given_phone)
 	{
 		int index =0;
@@ -395,12 +486,56 @@ public class Wearhouse
 				wearhouse_suppliers[i] = wearhouse_suppliers[i+1];
 				wearhouse_suppliers[i+1] = null;
 			}
+		
+		
+		if(Is_supplier_in_array(given_phone))
+		{
+			System.out.println("The requested Supplier: \n" + given_phone + "\n"
+					+"\n" +"was not removed from the wearhouse! \n");
+					return;
+				}
+				System.out.println("The requested Supplier: \n" + given_phone 
+						+"\n" +"was removed from the wearhouse! \n");
+				return;
+		}
+
+	/**
+	 * Generates a string listing all registered suppliers in the warehouse.
+	 *
+	 * @return A string containing all supplier details, or a message if empty.
+	 */
+	public String Show_suppliers()
+	{
+		if(wearhouse_suppliers[0] == null)
+		{
+			return "No suppliers in the wearhouse still!" + "\n";
+		}
+
+		String ans = "";
+
+		for(int i = 0; i < CountArraySlots(wearhouse_suppliers); i++)
+		{
+			if(wearhouse_suppliers[i] != null) 
+			{
+				ans += wearhouse_suppliers[i].toString();
+			}
+			else
+			{
+
+				ans += "null";
+			}
+		}
+		return ans;
 	}
 
-
-
-	///* this method will take the item by its id from the Supplier and place in in the wearhouse*/
-	///* supplier will have an item he is suppling and this will be the item that will go to the wearhouse*/
+	/**
+	 * Transfers a product from a specific supplier's inventory into the warehouse.
+	 * Removes the product from the supplier's list and pushes it onto the warehouse stack.
+	 *
+	 * @param given_phone   The phone number identifying the supplier.
+	 * @param given_item_id The product ID to receive from the supplier.
+	 * @throws Exception If the item is not found or cannot be supplied.
+	 */
 	public void Add_to_wearhouse_from_supplier(String given_phone,int given_item_id) throws Exception
 	{
 
@@ -457,7 +592,12 @@ public class Wearhouse
 
 	}
 
-	///* this meathod will chack by id if an  item is already in the wearhouse*/
+	/**
+	 * Checks whether a product with the specified ID currently exists in the warehouse stack.
+	 *
+	 * @param given_id The product ID to search for.
+	 * @return true if the product exists in the warehouse; false otherwise.
+	 */
 	public boolean Is_product_in_wearhouse(int given_id) 
 	{
 		if(item_stack.isStackEmpty())
@@ -483,6 +623,14 @@ public class Wearhouse
 		return false;
 	}
 
+	/**
+	 * Traverses the warehouse product stack to find and return the product with the given ID
+	 * without removing it.
+	 *
+	 * @param given_id ID of the product to find.
+	 * @return The matching Product instance.
+	 * @throws Exception If the product ID is not present in the warehouse.
+	 */
 	public Product search_product(int given_id) throws Exception
 	{
 		if(!(Is_product_in_wearhouse(given_id)))
@@ -508,6 +656,14 @@ public class Wearhouse
 		throw new NullPointerException("The requested id was not found! \n");
 	}
 
+	/**
+	 * Searches for and removes a product by ID from the warehouse stack using a temporary stack 
+	 * to preserve the original order of the remaining items.
+	 *
+	 * @param given_id ID of the product to remove.
+	 * @return The removed Product object, or null if not found.
+	 * @throws NullPointerException If the warehouse stack is empty.
+	 */
 	public Product remove_product_from_wearhouse(int given_id) 
 	{
 		if(item_stack.isStackEmpty())
@@ -554,56 +710,6 @@ public class Wearhouse
 
 
 
-	// printing the whole Employee's array
-	public String Show_employees()
-	{
-
-		if(wearhouse_employees[0] == null)
-		{
-			return "No employees in the wearhouse still!" + "\n";
-		}
-		String ans = "";
-
-		for(int i = 0; i <CountArraySlots(wearhouse_employees) ; i++)
-		{
-
-			if(wearhouse_employees[i] != null)
-			{
-				ans += wearhouse_employees[i].toString();
-			} 
-			else
-			{
-
-				ans += "null";
-			}
-
-		}
-		return ans;
-	}
-
-	//printing the whole Suplliers's array
-	public String Show_suppliers()
-	{
-		if(wearhouse_suppliers[0] == null)
-		{
-			return "No suppliers in the wearhouse still!" + "\n";
-		}
-
-		String ans = "";
-
-		for(int i = 0; i < CountArraySlots(wearhouse_suppliers); i++)
-		{
-			if(wearhouse_suppliers[i] != null) 
-			{
-				ans += wearhouse_suppliers[i].toString();
-			}
-			else
-			{
-
-				ans += "null";
-			}
-		}
-		return ans;
-	}
+	
 
 }

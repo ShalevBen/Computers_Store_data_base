@@ -72,14 +72,21 @@ public String toString()
 	return ans;
 }
 
-//chacks if the list is empty
+/**
+ * Checks whether the supplier's product list is empty.
+ *
+ * @return True if the list is empty/null; false otherwise.
+ */
 public boolean isListEmpty()
 {
 	return product_list == null; 	
 }
 
-/* this function goes in the list and look inside it
- * @return true if the given id is in the list
+/**
+ * Searches the supplier's linked list to check if they offer a product with the specified ID.
+ *
+ * @param product_id Product ID to check.
+ * @return True if the product is in the supplier's list; false otherwise.
  */
 public boolean Is_Product_in_the_list( int product_id)
 {
@@ -109,7 +116,11 @@ public boolean Is_Product_in_the_list( int product_id)
 	return false;
 }
 
-//insert a Product to the end of the list.
+/**
+ * Adds a new product to the end of the supplier's product linked list if not already present.
+ *
+ * @param given_product Product instance to append.
+ */
 public void addLastProduct(Product given_product)
 {
 	// if the list is empty we will create a new list and set its item as the given item..
@@ -149,7 +160,13 @@ public void addLastProduct(Product given_product)
 		}
 }
 
-//remove the node in the list and return him, it handels the connection in between nodes.
+/**
+ * Removes and returns a product node from the supplier's linked list by its product ID.
+ * Updates surrounding node pointers to keep the chain intact.
+ *
+ * @param given_id ID of the product to remove.
+ * @return The removed ProductLink node, or null if not found.
+ */
 public ProductLink removeProduct(int given_id)
 {
 	

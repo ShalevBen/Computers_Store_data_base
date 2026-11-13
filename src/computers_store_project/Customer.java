@@ -78,6 +78,10 @@ public String toString()
 	return ans;
 }
 
+/**
+ * Applies a 30% discount to the customer's total paid amount if they hold VIP status.
+ * If the customer is not a VIP, prints a notification and leaves the amount unchanged.
+ */
 public void ApplyDisc()
 {
 	double precentage = 30;
