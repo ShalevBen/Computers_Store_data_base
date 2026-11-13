@@ -7,7 +7,7 @@
  * 
  * System.out.println("--- computers_store_project: Main Tester ---\n");
  * 
- * Customer c1 = new Customer("Noa Bachash", 208645769, 300.0, true); Customer
+ * Customer c1 = new Customer("Ron Amar", 208645769, 300.0, true); Customer
  * c2 = new Customer("Tom roni",287548659,600.0,false); Customer c3 = new
  * Customer("Sarah Levi", 312456789, 1250.5, true); Customer c4 = new
  * Customer("David Cohen", 204938475, 420.75, false); Employee e1 = new
